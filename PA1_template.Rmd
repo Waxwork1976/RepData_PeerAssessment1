@@ -32,6 +32,7 @@ activity <- as.data.table(activity)
 
 ```
 Okay, let's go!
+
 ## What is mean total number of steps taken per day?
 ```{r}
 steps_per_date <- aggregate(activity$steps, by=list(Date = activity$date), FUN=sum)
@@ -65,6 +66,7 @@ plot(type="l", x=steps_per_interval$Interval, y=steps_per_interval$x, xlab = "In
 ```{r}
 print(paste0("Maximum mean of steps (", my_max$x, ") is on interval ", my_max$Interval))
 ```
+
 ## Imputing mising values
 
 
@@ -75,7 +77,9 @@ print(x[1, COUNT])
 ```
 
 ### Impute missing steps
+
 Missing steps are imputed as the mean of the value over the interval. Result is stored in a new data table.
+
 ```{r}
 library(dplyr)
 library(plyr)
@@ -112,17 +116,20 @@ abline(v=my_median2, col=c("green"), lwd = 2, lty=3)
 legend(x=16000, y=23,  legend = c(paste0("Mean (", round(my_mean2, digits = 4), ")") , paste0("Median (",my_median2, ")")), lwd=2, col=c("blue", "green"))
 ```
 
+
 Mean and median did not change after the imputation of NA using the mean of the interval.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
 Let's add a factor to type the day...
+
 ```{r}
 library(lubridate)
 activity2$day <- ifelse(wday(activity2$date) %in% c(0, 6), "weekend", "weekday")
 ```
 
 And plot week days and weekends to see if there is some difference
+
 ```{r}
 
 library(data.table)
@@ -138,8 +145,13 @@ means_per_interval <- data.table(intervals = as.numeric(activity2$interval), wd_
 plot(means_per_interval$intervals, means_per_interval$wd_means, type="l", col="blue")
 plot(means_per_interval$intervals, means_per_interval$we_means, type="l", col="green")
 ```
-We can see that there are some differences.Maybe should we deiplay both curves together?
+
+We can see that there are some differences. Maybe should we display both curves together?
+
 ```{r}
 plot(means_per_interval$intervals, means_per_interval$wd_means, type="l", col="blue")
 lines(means_per_interval$intervals, means_per_interval$we_means, type="l", col="green")
+legend(x=0, y=120, legend=c("weekday", "weekend"), col=c("blue", "green"), lwd=2)
 ```
+
+Yep, there are changes in patterns!

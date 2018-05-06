@@ -29,7 +29,10 @@ unlink(temp)
 activity <- as.data.table(activity)
 ```
 
-Okay, let's go! \#\# What is mean total number of steps taken per day?
+Okay, let's go!
+
+What is mean total number of steps taken per day?
+-------------------------------------------------
 
 ``` r
 steps_per_date <- aggregate(activity$steps, by=list(Date = activity$date), FUN=sum)
@@ -203,11 +206,16 @@ plot(means_per_interval$intervals, means_per_interval$wd_means, type="l", col="b
 plot(means_per_interval$intervals, means_per_interval$we_means, type="l", col="green")
 ```
 
-![](PA1_template_files/figure-markdown_github/unnamed-chunk-10-1.png) We can see that there are some differences.Maybe should we deiplay both curves together?
+![](PA1_template_files/figure-markdown_github/unnamed-chunk-10-1.png)
+
+We can see that there are some differences. Maybe should we display both curves together?
 
 ``` r
 plot(means_per_interval$intervals, means_per_interval$wd_means, type="l", col="blue")
 lines(means_per_interval$intervals, means_per_interval$we_means, type="l", col="green")
+legend(x=0, y=120, legend=c("weekday", "weekend"), col=c("blue", "green"), lwd=2)
 ```
 
 ![](PA1_template_files/figure-markdown_github/unnamed-chunk-11-1.png)
+
+Yep, there are changes in patterns!
