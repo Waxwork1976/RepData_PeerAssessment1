@@ -2,7 +2,10 @@
 title: "Reproductible Research - Peer assignment week 1"
 author: "C. Bissegger"
 date: "1 May 2018"
-output: html_document
+output:
+  md_document:
+    variant: markdown_github
+
 ---
 
 ```{r setup, include=FALSE}
